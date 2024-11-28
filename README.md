@@ -1,7 +1,7 @@
 <div align="center">
 <br />
 <a>
-<img src="public/logo.svg" alt="Faturly Banner">
+<img src="public/logo.svg" alt="https://github.com/Oclaz/faturly.git">
 </a>
 <br />
 <div>
