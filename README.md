@@ -58,7 +58,7 @@ cd faturly
 npm install
 ```
 
-3. **Set Up Environment Variables**: Create a `.env.local` file in the root directory and add the following:
+3. **Set Up Environment Variables**: Create a `.env` file in the root directory and add the following:
 
 ```bash
 DATABASE_URL=your_postgres_database_url
