@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -9,9 +8,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
-import { signIn } from "../utils/auth";
+import { auth, signIn } from "../utils/auth";
+import SubmitButton from "@/components/SubmitButtons";
+import { redirect } from "next/navigation";
 
-export default function Login() {
+export default async function Login() {
+  const session = await auth();
+  if (session?.user) {
+    redirect("/dashboard");
+  }
   return (
     <>
       <div className="flex h-screen w-full items-center justify-center px-4">
@@ -31,16 +36,21 @@ export default function Login() {
           </CardHeader>
           <CardContent>
             <form
-              action={async () => {
+              action={async (formData) => {
                 "use server";
-                await signIn();
+                await signIn("nodemailer", formData);
               }}
               className="flex flex-col gap-y-4"
             >
               <div className="flex flex-col gap-y-2">
                 <Label>Email</Label>
-                <Input type="email" name="email" placeholder="example@ex.com" />
-                <Button type="submit">Login</Button>
+                <Input
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="example@ex.com"
+                />
+                <SubmitButton text="Login" />
               </div>
             </form>
           </CardContent>
