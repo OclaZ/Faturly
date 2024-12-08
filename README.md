@@ -14,7 +14,7 @@
 
 # Faturly - Invoice Management Application
 
-**Faturly** is a professional invoice application tailored for Moroccan businesses, developed with **Next.js**. It enables businesses to streamline their invoicing processes, generate PDF invoices, and send them via email with ease.
+**Faturly** is a professional invoice application tailored for online businesses, developed with **Next.js**. It enables businesses to streamline their invoicing processes, generate PDF invoices, and send them via email with ease.
 
 ## 🖥️ Tech Stack
 
