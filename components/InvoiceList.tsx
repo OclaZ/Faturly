@@ -7,9 +7,32 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
-import InvoiceActions from "./InvoiceActions";
+import prisma from "@/app/utils/db";
+import { requireUser } from "@/app/utils/hooks";
+import { formatCurrency } from "@/app/utils/formatCurrency";
+import { Badge } from "./ui/badge";
+import { InvoiceActions } from "./InvoiceActions";
 
-const InvoiceList = () => {
+async function getData(userId: string) {
+  const data = await prisma.invoice.findMany({
+    where: { userId: userId },
+    select: {
+      id: true,
+      clientName: true,
+      total: true,
+      createdAt: true,
+      status: true,
+      invoiceNumber: true,
+      currency: true,
+    },
+    orderBy: { createdAt: "desc" },
+  });
+  return data;
+}
+
+export async function InvoiceList() {
+  const session = await requireUser();
+  const data = await getData(session.user?.id as string);
   return (
     <Table>
       <TableHeader>
@@ -23,19 +46,35 @@ const InvoiceList = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow>
-          <TableCell className="font-medium">INV-001</TableCell>
-          <TableCell className="font-medium">John Doe</TableCell>
-          <TableCell className="font-medium">$1000.00 </TableCell>
-          <TableCell className="font-medium">Pending</TableCell>
-          <TableCell className="font-medium">01/01/2024</TableCell>
-          <TableCell className="text-right">
-            <InvoiceActions />
-          </TableCell>
-        </TableRow>
+        {data.map((invoice) => (
+          <TableRow key={invoice.id}>
+            <TableCell className="font-medium">
+              # {invoice.invoiceNumber}
+            </TableCell>
+            <TableCell className="font-medium">{invoice.clientName}</TableCell>
+            <TableCell className="font-medium">
+              {formatCurrency(invoice.total, invoice.currency)}
+            </TableCell>
+            <TableCell className="font-medium">
+              <Badge
+                className={
+                  invoice.status === "PAID" ? "bg-green-500" : "bg-red-500"
+                }
+              >
+                {invoice.status}
+              </Badge>
+            </TableCell>
+            <TableCell className="font-medium">
+              {new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(
+                invoice.createdAt
+              )}
+            </TableCell>
+            <TableCell className="text-right">
+              <InvoiceActions id={invoice.id} status={invoice.status} />
+            </TableCell>
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   );
-};
-
-export default InvoiceList;
+}

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   DropdownMenu,
@@ -15,8 +16,27 @@ import {
   TrashIcon,
 } from "lucide-react";
 import Link from "next/link";
-
-const InvoiceActions = () => {
+import { toast } from "sonner";
+interface iAppProps {
+  id: string;
+  status: string;
+}
+export function InvoiceActions({ id, status }: iAppProps) {
+  const handleSendReminder = () => {
+    toast.promise(
+      fetch(`/api/email/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }),
+      {
+        loading: "Sending reminder email...",
+        success: "Reminder email sent successfully",
+        error: "Failed to send reminder email",
+      }
+    );
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -26,38 +46,36 @@ const InvoiceActions = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem asChild>
-          <Link href="/">
+          <Link href={`/dashboard/invoices/${id}`}>
             <PencilIcon className="mr-2 size-4" />
             Edit Invoice
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href="/">
+          <Link href={`/api/invoice/${id}`} target="_blank">
             <DownloadCloudIcon className="mr-2 size-4" />
             Download Invoice
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href="/">
-            <MailIcon className="mr-2 size-4" />
-            Reminder Email
-          </Link>
+        <DropdownMenuItem onClick={handleSendReminder}>
+          <MailIcon className="mr-2 size-4" />
+          Reminder Email
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href="/">
+          <Link href={`/dashboard/invoices/${id}/delete`}>
             <TrashIcon className="mr-2 size-4" />
             Delete Invoice
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href="/">
-            <CheckCircleIcon className="mr-2 size-4" />
-            Mark as Paid
-          </Link>
-        </DropdownMenuItem>
+        {status !== "PAID" && (
+          <DropdownMenuItem asChild>
+            <Link href={`/dashboard/invoices/${id}/paid`}>
+              <CheckCircleIcon className="mr-2 size-4" />
+              Mark as Paid
+            </Link>
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
-};
-
-export default InvoiceActions;
+}

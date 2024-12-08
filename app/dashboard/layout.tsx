@@ -22,6 +22,7 @@ import {
 import { signOut } from "../utils/auth";
 import prisma from "../utils/db";
 import { redirect } from "next/navigation";
+import { Toaster } from "@/components/ui/sonner";
 
 async function getUser(userId: string) {
   const data = await prisma.user.findUnique({
@@ -44,14 +45,14 @@ export default async function DashboardLayout({
       <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
         <div className="hidden border-r  bg-muted/40 md:block">
           <div className="flex flex-col max-h-screen h-full gap-4">
-            <div className="h-14 flex items-center border-b  px-4  lg:h-[60px] lg:px-6">
+            <div className="h-14 flex items-center border-b  px-4 lg:h-[60px] lg:px-6">
               <Link href={"/"} className="flex items-center ">
                 <Image
-                  src="/logo dark.svg"
+                  src="/logoo black.svg"
                   alt="logo"
-                  width={200}
-                  height={80}
-                  className="mx-5"
+                  width={250}
+                  height={200}
+                  className="mx-auto mb-4"
                 />
               </Link>
             </div>
@@ -74,11 +75,11 @@ export default async function DashboardLayout({
               <SheetContent side="left">
                 <nav className="grid gap-2 mt-2  ">
                   <Image
-                    src="/logo dark.svg"
+                    src="/logoo black.svg"
                     alt="logo"
                     width={200}
                     height={100}
-                    className="mx-1 mb-4"
+                    className="mx-auto mb-4"
                   />
                   <DashboardLinks />
                 </nav>
@@ -133,6 +134,7 @@ export default async function DashboardLayout({
           </main>
         </div>
       </div>
+      <Toaster richColors closeButton theme="light" />
     </>
   );
 }
