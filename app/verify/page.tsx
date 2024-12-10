@@ -15,6 +15,7 @@ import Link from "next/link";
 export default function Verify() {
   return (
     <div className="flex min-h-screen w-full items-center justify-center px-4">
+      <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
       <Card className="w-[380px] p-5">
         <CardHeader className="text-center m-0 p-0">
           <div className="mx-auto flex size-30">

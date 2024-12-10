@@ -20,7 +20,7 @@ async function getData(userId: string) {
       },
     },
     select: {
-      createdAt: true,
+      date: true,
       total: true,
     },
     orderBy: {
@@ -29,7 +29,7 @@ async function getData(userId: string) {
   });
   const AggregatedData = rawData.reduce(
     (acc: { [key: string]: number }, curr) => {
-      const date = new Date(curr.createdAt).toLocaleDateString("en-US", {
+      const date = new Date(curr.date).toLocaleDateString("en-US", {
         day: "numeric",
         month: "short",
       });

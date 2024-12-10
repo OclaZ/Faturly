@@ -7,6 +7,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import prisma from "@/app/utils/db";
 import { requireUser } from "@/app/utils/hooks";
+import { formatCurrency } from "@/app/utils/formatCurrency";
 async function getData(userId: string) {
   const [data, pendingInvoices, paidInvoices] = await Promise.all([
     prisma.invoice.findMany({
@@ -42,7 +43,10 @@ export default async function DashboardBlocks() {
         </CardHeader>
         <CardContent>
           <h2 className="text-2xl font-bold">
-            $ {dataWithTotal.reduce((acc, invoice) => acc + invoice.total, 0)}
+            {formatCurrency(
+              dataWithTotal.reduce((a, b) => a + b.total, 0),
+              "USD"
+            )}
           </h2>
           <p className="text-sm text-muted-foreground">
             Based on the last 30 days
@@ -57,7 +61,7 @@ export default async function DashboardBlocks() {
           <FilesIcon className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <h2 className="text-2xl font-bold">{data.length}</h2>
+          <h2 className="text-2xl font-bold">+ {data.length}</h2>
           <p className="text-sm text-muted-foreground">Total invoices issued</p>
         </CardContent>
       </Card>
@@ -69,7 +73,7 @@ export default async function DashboardBlocks() {
           <CreditCardIcon className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <h2 className="text-2xl font-bold">{paidInvoices.length}</h2>
+          <h2 className="text-2xl font-bold">+ {paidInvoices.length}</h2>
           <p className="text-sm text-muted-foreground">Total paid invoices</p>
         </CardContent>
       </Card>
@@ -81,7 +85,7 @@ export default async function DashboardBlocks() {
           <ActivityIcon className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <h2 className="text-2xl font-bold">{pendingInvoices.length}</h2>
+          <h2 className="text-2xl font-bold">+ {pendingInvoices.length}</h2>
           <p className="text-sm text-muted-foreground">Total open invoices</p>
         </CardContent>
       </Card>

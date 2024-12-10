@@ -40,7 +40,11 @@ export const currencyData = [
 
 export const formatCurrency = (amount: number, currency: string) => {
   const currencyInfo = currencyData.find((c) => c.code === currency);
-  return `${currencyInfo?.symbol || currency} ${amount.toFixed(2)}`;
+  const formattedAmount = amount.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+  return `${currencyInfo?.symbol || currency} ${formattedAmount}`;
 };
 
 export const currencyList = currencyData;

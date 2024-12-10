@@ -215,7 +215,7 @@ export function CreateInvoice({
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
-                    className="w-[200px] text-left justify-start"
+                    className="w-[280px] text-left justify-start"
                   >
                     <CalendarIcon />
                     {selectedDate ? (
@@ -223,15 +223,17 @@ export function CreateInvoice({
                         dateStyle: "long",
                       }).format(selectedDate)
                     ) : (
-                      <span>Select Date</span>
+                      <span>Pick a Date</span>
                     )}
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0">
+                <PopoverContent>
                   <Calendar
-                    mode="single"
                     selected={selectedDate}
-                    onSelect={(date) => setSelectedDate(date || new Date())}
+                    onSelect={(date) => {
+                      if (date) setSelectedDate(date); // Only update if a date is selected
+                    }}
+                    mode="single"
                     fromDate={new Date()}
                   />
                 </PopoverContent>

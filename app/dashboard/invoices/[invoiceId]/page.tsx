@@ -1,21 +1,36 @@
-import prisma from "@/app/utils/db";
-import { requireUser } from "@/app/utils/hooks";
-import { EditInvoice } from "@/components/EditInvoice";
-import { notFound } from "next/navigation";
+import { InvoiceList } from "@/components/InvoiceList";
+import { InvoiceTableSkeleton } from "@/components/InvoiceTableSkeleton";
+import { buttonVariants } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { PlusIcon } from "lucide-react";
+import Link from "next/link";
+import { Suspense } from "react";
 
-async function getData(invoiceId: string, userId: string) {
-  const data = await prisma.invoice.findUnique({
-    where: { id: invoiceId, userId: userId },
-  });
-  if (!data) {
-    return notFound();
-  }
-  return data;
-}
-type Params = Promise<{ invoiceId: string }>;
-export default async function EditInvoiceRoute({ params }: { params: Params }) {
-  const session = await requireUser();
-  const { invoiceId } = await params;
-  const data = await getData(invoiceId, session.user?.id as string);
-  return <EditInvoice data={data} />;
+export default function InvoicesRoute() {
+  return (
+    <Card>
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <div>
+            <CardTitle className="text-2xl font-bold">Invoices</CardTitle>
+            <CardDescription>Manage your invoices right here</CardDescription>
+          </div>
+          <Link href="/dashboard/invoices/create" className={buttonVariants()}>
+            <PlusIcon /> Create Invoice
+          </Link>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <Suspense fallback={<InvoiceTableSkeleton />}>
+          <InvoiceList />
+        </Suspense>
+      </CardContent>
+    </Card>
+  );
 }
