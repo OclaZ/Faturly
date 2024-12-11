@@ -22,7 +22,7 @@ export const dashboardLinks = [
 export function DashboardLinks() {
   const pathname = usePathname();
   return (
-    <>
+    <div className="space-y-1">
       {dashboardLinks.map((link) => (
         <Link
           key={link.id}
@@ -38,6 +38,6 @@ export function DashboardLinks() {
           <span>{link.name}</span>
         </Link>
       ))}
-    </>
+    </div>
   );
 }

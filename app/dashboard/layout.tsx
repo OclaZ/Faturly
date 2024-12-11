@@ -3,6 +3,7 @@ import { requireUser } from "../utils/hooks";
 import Link from "next/link";
 import Image from "next/image";
 import { DashboardLinks } from "@/components/DashboardLinks";
+import { SocialLinks } from "@/components/SocialLinks";
 import {
   Sheet,
   SheetContent,
@@ -33,6 +34,7 @@ async function getUser(userId: string) {
     redirect("/onboarding");
   }
 }
+
 export default async function DashboardLayout({
   children,
 }: {
@@ -42,9 +44,9 @@ export default async function DashboardLayout({
   const data = await getUser(session.user?.id as string);
   return (
     <>
-      <div className="grid min-h-screen w-full md:gird-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
-        <div className="hidden border-r bg-muted/40 md:block">
-          <div className="flex flex-col max-h-screen h-full gap-2">
+      <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+        <div className="hidden border-r bg-muted/40 md:block flex flex-col h-full">
+          <div className="flex flex-col h-full">
             <div className="h-14 flex items-center border-b px-4 lg:h-[60px] lg:px-6">
               <Link href={"/"} className="flex items-center ">
                 <Image
@@ -56,10 +58,13 @@ export default async function DashboardLayout({
                 />
               </Link>
             </div>
-            <div className="flex-1">
-              <nav className="grid w-full gap-2 items-start px-2 text-sm font-medium lg:px-4">
+            <div className="flex-1 overflow-hidden">
+              <nav className="grid w-full gap-2 items-start px-2 text-sm font-medium lg:px-4 h-full overflow-y-auto">
                 <DashboardLinks />
               </nav>
+            </div>
+            <div className="mt-auto border-t py-4">
+              <SocialLinks />
             </div>
           </div>
         </div>
@@ -73,7 +78,7 @@ export default async function DashboardLayout({
               </SheetTrigger>
               <SheetTitle></SheetTitle>
               <SheetContent side="left">
-                <nav className="grid gap-2 mt-2  ">
+                <nav className="grid gap-2 mt-2">
                   <Image
                     src="/logoo black.svg"
                     alt="logo"
@@ -82,6 +87,9 @@ export default async function DashboardLayout({
                     className="mx-auto mb-4"
                   />
                   <DashboardLinks />
+                  <div className="mt-auto">
+                    <SocialLinks />
+                  </div>
                 </nav>
               </SheetContent>
             </Sheet>
