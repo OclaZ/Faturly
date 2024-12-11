@@ -18,5 +18,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       from: process.env.EMAIL_FROM,
     }),
   ],
-  pages: { verifyRequest: "/verify" },
+  pages: {
+    verifyRequest: "/verify", // Customize the page for verification request
+  },
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      // Redirect to /dashboard if email is verified
+      if (url === "/verify") {
+        return baseUrl + "/dashboard"; // Redirect after verification
+      }
+      return url; // Otherwise, return the default URL
+    },
+  },
 });

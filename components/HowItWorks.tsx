@@ -1,9 +1,9 @@
 "use client";
 import { motion } from "framer-motion";
 
-export function Features() {
+export function HowItWorks() {
   return (
-    <main className="relative flex flex-col items-center justify-center bg-white">
+    <main className="relative flex flex-col items-center justify-center">
       {/* Background */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -16,44 +16,30 @@ export function Features() {
       <section className="relative flex w-full py-12 justify-center">
         <div className="container px-4 md:px-6 text-center">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
-            Powerful Features to Simplify Your Workflow
+            How It Works
           </h2>
           <p className="text-lg text-zinc-600 mb-12">
             Our app is packed with features designed to save you time, improve
             efficiency, and ensure the best experience for you and your clients.
           </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {[
               {
-                title: "Authentication",
-                description:
-                  "Secure login using Auth.js with Magic Links, ensuring safe access for all users.",
+                step: 1,
+                title: "Sign Up",
+                description: "Create your Faturly account in minutes.",
               },
               {
-                title: "PDF Invoicing",
+                step: 2,
+                title: "Set Up Your Business",
                 description:
-                  "Generate professional invoices as PDFs with JsPDF, ready for easy sharing.",
+                  "Add your business details and customize your invoice template.",
               },
               {
-                title: "Email Integration",
+                step: 3,
+                title: "Start Invoicing",
                 description:
-                  "Send invoices and updates to clients using Mailtrap, streamlining your communication.",
-              },
-              {
-                title: "Database Management",
-                description:
-                  "Store and manage all invoice-related data in PostgreSQL, ensuring security and scalability.",
-              },
-              {
-                title: "Overdue Reminders",
-                description:
-                  "Automate email reminders for overdue payments, helping you get paid faster.",
-              },
-              {
-                title: "Mobile-Responsive Design",
-                description:
-                  "Optimized for all screen sizes and devices, providing a seamless experience everywhere.",
+                  "Create and send professional invoices to your clients.",
               },
             ].map((item, index) => (
               <motion.div
@@ -67,9 +53,10 @@ export function Features() {
                   delay: index * 0.1, // Adds a staggered effect
                 }}
               >
-                <h3 className="text-2xl font-semibold text-primary-600">
-                  {item.title}
-                </h3>
+                <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xl font-bold mb-2">
+                  {item.step}
+                </div>
+                <h3 className="text-xl font-semibold">{item.title}</h3>
                 <p className="text-zinc-500 dark:text-zinc-400">
                   {item.description}
                 </p>

@@ -7,6 +7,7 @@ import prisma from "./utils/db";
 import { redirect } from "next/navigation";
 import { emailClient } from "./utils/mailtrap";
 import { formatCurrency } from "./utils/formatCurrency";
+import { auth, signIn } from "./utils/auth";
 
 export async function OnboardUser(prevState: any, formData: FormData) {
   const session = await requireUser();
@@ -148,4 +149,11 @@ export async function markAsPaid(invoiceId: string) {
     data: { status: "PAID" },
   });
   return redirect("/dashboard/invoices");
+}
+export async function handleSignIn(formData: FormData) {
+  const session = await auth();
+  if (session?.user) {
+    redirect("/dashboard");
+  }
+  return await signIn("nodemailer", formData);
 }

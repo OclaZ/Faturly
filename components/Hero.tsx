@@ -17,6 +17,7 @@ import { cn } from "@/lib/utils";
 import Safari from "./ui/safari";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import BlurIn from "./ui/blur-in";
+import { handleSignIn } from "@/app/actions";
 
 export default function Hero() {
   const [isMounted, setIsMounted] = useState(false);
@@ -31,7 +32,7 @@ export default function Hero() {
   }
 
   return (
-    <main className="relative flex flex-col items-center justify-center bg-white">
+    <main className="relative mt-20 flex flex-col items-center justify-center bg-white">
       {/* Background */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -99,7 +100,10 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.6 }}
               className="flex flex-col justify-center items-center w-full py-10 px-4 relative"
             >
-              <form className="flex items-center gap-4 w-full max-w-2xl">
+              <form
+                action={handleSignIn}
+                className="flex items-center gap-4 w-full max-w-2xl"
+              >
                 <Label className="w-1/2 text-md">Enter your email </Label>
                 <Input
                   type="email"

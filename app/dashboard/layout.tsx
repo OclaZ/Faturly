@@ -57,7 +57,7 @@ export default async function DashboardLayout({
               </Link>
             </div>
             <div className="flex-1">
-              <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
+              <nav className="grid w-full gap-2 items-start px-2 text-sm font-medium lg:px-4">
                 <DashboardLinks />
               </nav>
             </div>
