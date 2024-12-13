@@ -24,16 +24,22 @@ export async function POST(
       return NextResponse.json({ error: "Invoice not found" }, { status: 404 });
     }
     const sender = {
-      email: "hello@demomailtrap.com",
+      email: "hello@faturly.online",
       name: "Faturly",
     };
+    const recipients = [
+      {
+        email: invoiceData.clientEmail,
+        name: invoiceData.clientName,
+      },
+    ];
     emailClient.send({
       from: sender,
-      to: [{ email: "aslikhhamza2001@gmail.com" }],
-      template_uuid: "52c69a8d-246a-471e-b1bb-51aee76e2b09",
+      to: recipients,
+      template_uuid: "0ac75e18-cefd-484d-95dc-9ba39a89f9db",
       template_variables: {
-        clientName: "# " + invoiceData.clientName,
-        invoiceNumber: invoiceData.invoiceNumber,
+        clientName: invoiceData.clientName,
+        invoiceNumber: "# " + invoiceData.invoiceNumber,
         dueDate: "0 days",
         totalAmount: formatCurrency(invoiceData.total, invoiceData.currency),
         paymentLink: "/",

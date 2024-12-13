@@ -61,13 +61,18 @@ export async function createInvoice(prevState: any, formData: FormData) {
     },
   });
   const sender = {
-    email: "hello@demomailtrap.com",
+    email: "hello@faturly.online",
     name: "Faturly",
   };
   emailClient.send({
     from: sender,
-    to: [{ email: "aslikhhamza2001@gmail.com" }],
-    template_uuid: "c3bb58cb-288f-4c47-b036-9cce953a719e",
+    to: [
+      {
+        email: submission.value.clientEmail,
+        name: submission.value.clientName,
+      },
+    ],
+    template_uuid: "f420e9f4-17a8-4040-b3f8-9a17a9f74f7e",
     template_variables: {
       clientName: submission.value.clientName,
       invoiceNumber: "#" + submission.value.invoiceNumber,
@@ -114,13 +119,18 @@ export async function editInvoice(prevState: any, formData: FormData) {
     },
   });
   const sender = {
-    email: "hello@demomailtrap.com",
+    email: "hello@faturly.online",
     name: "Faturly",
   };
   emailClient.send({
     from: sender,
-    to: [{ email: "aslikhhamza2001@gmail.com" }],
-    template_uuid: "26629615-8644-430e-8f74-064a9dfc56f8",
+    to: [
+      {
+        email: submission.value.clientEmail,
+        name: submission.value.clientName,
+      },
+    ],
+    template_uuid: "d8cccd4b-5e05-4607-9872-67ea955d8fdf",
     template_variables: {
       clientName: submission.value.clientName,
       invoiceNumber: "#" + submission.value.invoiceNumber,
