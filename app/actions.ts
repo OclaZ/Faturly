@@ -142,9 +142,10 @@ export async function editInvoice(prevState: any, formData: FormData) {
         submission.value.total,
         submission.value.currency
       ),
-      invoiceLink:process.env.NODE_ENV !== "production"
+      invoiceLink:
+        process.env.NODE_ENV !== "production"
           ? `http://localhost:3000/api/invoice/${data.id}`
-          : `https://faturly.online/api/invoice/${data.id}`,,
+          : `https://faturly.online/api/invoice/${data.id}`,
     },
   });
   return redirect("/dashboard/invoices");
