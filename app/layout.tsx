@@ -1,3 +1,4 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
 import "./globals.css";
@@ -20,7 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${kanit.variable} font-sans`}>{children}</body>
+      <body className={`${kanit.variable} font-sans`}>
+        {children}
+        <SpeedInsights />
+      </body>
     </html>
   );
 }
