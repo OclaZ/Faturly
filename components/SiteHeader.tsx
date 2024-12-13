@@ -86,6 +86,50 @@ export default function Header() {
           </Link>
         </div>
       </div>
+      {/* Mobile menu */}
+      <div
+        className={`fixed inset-0 bg-white z-40 transition-transform duration-300 ease-in-out transform ${
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
+        } md:hidden`}
+      >
+        <div className="flex flex-col items-center justify-center h-full space-y-8">
+          <button
+            onClick={() => handleScroll("why-us")}
+            className="text-gray-600 hover:text-black text-xl"
+          >
+            Why Faturly?
+          </button>
+          <button
+            onClick={() => handleScroll("features")}
+            className="text-gray-600 hover:text-black text-xl"
+          >
+            Features
+          </button>
+          <button
+            onClick={() => handleScroll("how-it-works")}
+            className="text-gray-600 hover:text-black text-xl"
+          >
+            How It Works
+          </button>
+          <button
+            onClick={() => handleScroll("pricing")}
+            className="text-gray-600 hover:text-black text-xl"
+          >
+            Pricing
+          </button>
+          <button
+            onClick={() => handleScroll("contact")}
+            className="text-gray-600 hover:text-black text-xl"
+          >
+            Contact Us
+          </button>
+          <Link href="/login">
+            <Button className="bg-black text-white hover:bg-gray-800 px-6 py-2 text-xl">
+              Start for free
+            </Button>
+          </Link>
+        </div>
+      </div>
     </header>
   );
 }

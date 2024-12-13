@@ -23,6 +23,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async redirect({ url, baseUrl }) {
+      baseUrl = "https://faturly.online";
       // Redirect to /dashboard if email is verified
       if (url === "/verify") {
         return baseUrl + "/dashboard"; // Redirect after verification
