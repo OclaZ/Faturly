@@ -179,7 +179,7 @@ export default function Hero() {
                 className="rounded-md"
               >
                 <Safari
-                  url="faturly.app"
+                  url="faturly.online"
                   className="w-full h-full rounded-md shadow-2xl"
                   src={
                     activeTab === "dashboard"
