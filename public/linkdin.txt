@@ -20,7 +20,8 @@ Vercel: Smooth, serverless deployment.
 🚀 Try It Out Today!
 I’d love for you to explore Faturly and see how it works. Feedback, suggestions, and bug reports are incredibly welcome—they’ll help make the platform even better!
 
-👉 Check it out here: GitHub Repository
+👉 Check it out here: www.faturly.online
+👉 GitHub Repository here: https://github.com/OclaZ/Faturly
 👉 Watch the Demo Video to see Faturly in action.
 
 🔧 Found a bug or have ideas for improvement? Open an issue on GitHub or connect with me directly.
